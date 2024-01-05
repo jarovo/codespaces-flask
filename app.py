@@ -1,5 +1,5 @@
-from flask import Flask, render_template
-import qrcode
+from flask import Flask, render_template, make_response
+import qrcode, qrcode.image.svg
 
 app = Flask(__name__)
 
@@ -19,5 +19,6 @@ def qr_code():
     qr.add_data('Some data')
     qr.make(fit=True)
 
-    img = qr.make_image(attrib={'class': 'some-css-class'})(code)
-    return img.to_string(encoding='unicode')
+    img = qr.make_image(attrib={'class': 'some-css-class'})
+
+    return make_response(img.to_string(encoding='unicode')), {'content-type': 'image/svg+xml'}
