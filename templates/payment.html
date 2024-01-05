@@ -5,7 +5,11 @@
 <body>
     <div class="App">
         <header class="App-header">
-            <img src="{{ url_for('static', filename='Octocat.png') }}" class="App-logo" alt="logo" />
+            <img src="{{ url_for('qr_code') }}" class="QR" alt="payemnt QR code" />
+
+            <p>
+                GitHub Codespaces <span class="heart">♥️</span> Flask
+            </p>
             <p class="small">
                 Edit <code>templates/index.html</code> and refresh to see your changes!
             </p>
