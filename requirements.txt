@@ -1,2 +1,3 @@
 Flask==2.3.2
 qrcode==7.4.2
+qrplatba==1.1.1

@@ -1,14 +1,19 @@
+<!DOCTYPE html>
+<html>
 <head>
     <title>{{ title }}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}" />
+    <script src="static/gpay.js"></script>
+    <script async src="https://pay.google.com/gp/p/js/pay.js"
+        onload="onGooglePayLoaded()"></script>
+</head>
 <body>
     <div class="App">
         <header class="App-header">
-            <img src="{{ url_for('qr_code') }}" class="QR" alt="payemnt QR code" />
+            <img src="{{ url_for('qr_payment_code') }}" class="QR" alt="payemnt QR code" />
 
-            <p>
-                GitHub Codespaces <span class="heart">♥️</span> Flask
+            <p id="payment">
+                Pay here <span class="heart">♥️</span> 
             </p>
             <p class="small">
                 Edit <code>templates/index.html</code> and refresh to see your changes!
@@ -16,5 +21,4 @@
         </header>
     </div>
 </body>
-
 </html>
