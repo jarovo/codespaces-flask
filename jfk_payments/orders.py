@@ -2,6 +2,8 @@ import base64
 import logging
 import os.path
 from lxml import etree
+from dataclasses import dataclass, field
+from decimal import Decimal
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -67,10 +69,52 @@ def get_mails():
     print(f"An error occurred: {error}")
 
 
-def peck_out_values_raiffeisenbank_part(part):
-  doc = etree.HTML(part)
-  trs = doc.xpath('//tbody//tr')
-  yield {'\n'.join(tr.xpath('td[position()=1]/p/text()')).strip(): '\n'.join(tr.xpath('td[position()=2]/p/text()')).strip() for tr in trs}
+@dataclass
+class Transaction:
+  ammount: Decimal
+  currency: str
+  category: str
+  type: str
+  account_dst: str
+  account_dst_name: str
+  account_src: str
+  account_src_name: str
+  message_for_reciever: str
+  note: str
+  variabilni_symbol: str
+  konstantni_symbol: str
+  specificky_symbol: str
+
+  @classmethod
+  def from_raiffeisenbank_msg_part(cls, part):
+    doc = etree.HTML(part)
+    trs = doc.xpath('//tbody//tr')
+    parsed_table = {
+      '\n'.join(tr.xpath('td[position()=1]/p/text()')).strip():
+      '\n'.join(tr.xpath('td[position()=2]/p/text()')).strip() for tr in trs
+    }
+    
+    ammount_raw, currency = parsed_table['Částka v měně účtu'].split(' ')
+    ammount = Decimal(ammount_raw.replace('.', '').replace(',', '.'))
+
+    account_src, _, account_src_name = parsed_table['Z účtu'].partition('\n')
+    account_dst, _, account_dst_name = parsed_table['Na účet'].partition('\n')
+
+    return cls(
+      ammount = ammount,
+      currency = currency,
+      category = parsed_table['Kategorie pohybu'],
+      type = parsed_table['Typ pohybu'],
+      account_dst = account_dst,
+      account_dst_name = account_dst,
+      account_src = account_src,
+      account_src_name = account_src_name,
+      message_for_reciever = parsed_table.get('Zpráva pro příjemce'),
+      note = parsed_table.get('Zpráva pro mne'),
+      variabilni_symbol = parsed_table.get('Variabilní symbol'),
+      konstantni_symbol = parsed_table.get('Konstantní symbol'),
+      specificky_symbol = parsed_table.get('Specifický symbol')
+    )
 
 
 def read_parts(msg):
@@ -117,6 +161,6 @@ def main():
   for msg in found_messages:
     name, subject, from_name = read_mail(msg)
     parts = list(read_parts(msg))
-    payment_info = list(list(peck_out_values_raiffeisenbank_part(part)) for part in parts)
+    payment_info = list(Transaction.from_raiffeisenbank_msg_part(part) for part in parts)
     logging.info(f'{name}, {subject}, {from_name} {payment_info}')
     #mark_read(msg)
