@@ -1,43 +1,57 @@
----
-# devfile for Python flask projects, adapted from
-# https://github.com/eclipse-che/che-devfile-registry/blob/main/devfiles/python/devfile.yaml
-apiVersion: 1.0.0
+schemaVersion: 2.2.0
 metadata:
-  generateName: jfkpay
-projects:
-  - name: jfkpay
-    source:
-      type: git
-      location: "https://github.com/jarovo/jfkpay"
+  name: python
+  projectType: Python
+  displayName: Python
+  icon: https://raw.githubusercontent.com/devfile-samples/devfile-stack-icons/main/python.svg
+  description:
+    'jkpay is payment system supporting QR codes'
+  language: Python
+  version: 1.0.1
+  provider: Jaroslav Henner
+  tags:
+    - Payment
+    - Python
+    - Pip
+    - Flask
+  supportUrl: https://github.com/jarovo/jfkpay/
+  attributes:
+    alpha.dockerimage-port: 5002
+parent:
+  id: python
+  registryUrl: 'https://registry.devfile.io'
 components:
-  - type: chePlugin
-    id: ms-python/python/latest
-  - type: dockerimage
-    alias: python
-    image: quay.io/eclipse/che-python-3.8:next
-    memoryLimit: 512Mi
-    mountSources: true
-    env:
-      - name: FLASK_SECRET
-        value: 'you-will-never-guess'
-    endpoints:
-      - name: websocket-forward
-        port: 8080
-        attributes:
-          protocol: http
-          secure: 'false'
-          public: 'true'
-          discoverable: 'false'
+  - name: image-build
+    image:
+      imageName: python-image:latest
+      dockerfile:
+        uri: docker/Dockerfile
+        buildContext: .
+        rootRequired: false
+  - name: kubernetes-deploy
+    attributes:
+      deployment/replicas: 1
+      deployment/cpuRequest: 10m
+      deployment/memoryRequest: 50Mi
+      deployment/container-port: 5002
+    kubernetes:
+      uri: deploy.yaml
+      endpoints:
+      - name: http-5002
+        targetPort: 5002
+        path: /
 commands:
-  - name: run
-    actions:
-      - type: exec
-        component: python
-        command: '${HOME}/.local/bin/gunicorn wsgi:jfkpay.app:app -b 0.0.0.0:8080'
-        workdir: '${CHE_PROJECTS_ROOT}/jfkpay'
-  - name: install
-    actions:
-      - type: exec
-        component: python
-        command: 'pip3 install -r requirements.txt'
-        workdir: '${CHE_PROJECTS_ROOT}/jfkpay'
+  - id: build-image
+    apply:
+      component: image-build
+  - id: deployk8s
+    apply:
+      component: kubernetes-deploy
+  - id: deploy
+    composite:
+      commands:
+        - build-image
+        - deployk8s
+      group:
+        kind: deploy
+        isDefault: true
