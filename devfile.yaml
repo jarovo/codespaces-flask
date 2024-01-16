@@ -14,7 +14,7 @@ metadata:
     - Python
     - Pip
     - Flask
-  supportUrl: https://github.com/jarovo/jfkpay/
+  supportUrl: https://github.com/devfile-samples/devfile-support#support-information
   attributes:
     alpha.dockerimage-port: 5002
 variables:
