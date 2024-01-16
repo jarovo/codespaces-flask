@@ -130,7 +130,6 @@ def read_parts(msg):
 
 
 def read_mail(msg):
-  service = login()
   email_data = msg['payload']['headers']
   subject = getval(email_data, 'Subject')
   name = getval(email_data, 'name')
