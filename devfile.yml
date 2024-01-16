@@ -17,6 +17,10 @@ metadata:
   supportUrl: https://github.com/jarovo/jfkpay/
   attributes:
     alpha.dockerimage-port: 5002
+variables:
+  ACCOUNT_NUMBER: 123456789/0800
+  VARIABILNI_SYMBOL: 123456
+  KONSTANTNI_SYMBOL: 111111
 parent:
   id: python
   registryUrl: 'https://registry.devfile.io'
@@ -40,6 +44,13 @@ components:
       - name: http-5002
         targetPort: 5002
         path: /
+      env:
+        - name: QR_ACCOUNT
+          value: {{ACCOUNT_NUMBER}}
+        - name: QR_VARIABILNI_SYMBOL
+          value: {{VARIABILNI_SYMBOL}}
+        - name: QR_KONSTANTNI_SYMBOL
+          value: {{KONSTNATNI_SYMBOL}}
 commands:
   - id: build-image
     apply:
