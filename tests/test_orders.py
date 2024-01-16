@@ -32,4 +32,4 @@ def test_getval():
     assert orders.getval(mail_data, 'Subject') == 'Pohyb na účtě'
 
 def test_filter_by_subject():
-    assert any(orders.filter_by_subject([{'payload': {'headers': mail_data}}], 'Pohyb nas účtě'))
+    assert any(orders.filter_by_subject([{'payload': {'headers': mail_data}}], 'Pohyb na účtě'))
