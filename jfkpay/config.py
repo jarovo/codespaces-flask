@@ -27,5 +27,7 @@ class QRCodeConfig:
 
 
 class GSHeetsConfig:
-    SAMPLE_SPREADSHEET_ID = "1IayBUd_t14mIXfJIrqDxkRMoW_OslV_y3Ti_oVZOAMM"
-    SAMPLE_RANGE_NAME = "Class Data!A1:E"
+    PAYMENTS_GSHEET_ID = "1IayBUd_t14mIXfJIrqDxkRMoW_OslV_y3Ti_oVZOAMM"
+    PAYMENTS_HEADER_RANGE_NAME = "Odpovědi formuláře 1!A1:E"
+    PAYMENTS_STATE_COLUMN = "Stav voucheru"
+    PAYMENTS_STATE_NOT_PAYED = "Nezaplaceno"

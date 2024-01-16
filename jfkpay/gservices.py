@@ -35,7 +35,7 @@ def _creds():
     # Save the credentials for the next run
     with open("token.json", "w") as token:
       token.write(creds.to_json())
-
+  return creds
 
 def gmail_login():
     """Shows basic usage of the Gmail API.
