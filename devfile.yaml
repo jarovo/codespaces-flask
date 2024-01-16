@@ -5,7 +5,7 @@ metadata:
   displayName: Python
   icon: https://raw.githubusercontent.com/devfile-samples/devfile-stack-icons/main/python.svg
   description:
-    'jkpay is payment system supporting QR codes'
+    'jfkpay is payment system supporting QR codes'
   language: Python
   version: 1.0.1
   provider: Jaroslav Henner
