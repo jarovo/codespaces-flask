@@ -38,7 +38,7 @@ const allowedCardAuthMethods = ["PAN_ONLY", "CRYPTOGRAM_3DS"];
 const tokenizationSpecification = {
   type: 'PAYMENT_GATEWAY',
   parameters: {
-    'gateway': 'example',
+    'gateway': 'evopay',
     'gatewayMerchantId': 'exampleGatewayMerchantId'
   }
 };

@@ -10,14 +10,11 @@
 <body>
     <div class="App">
         <header class="App-header">
-            <img src="{{ url_for('qr_payment_code') }}" class="QR" alt="payemnt QR code" />
-
-            <p id="payment">
+            <div id="jfkpay">
                 Pay here <span class="heart">♥️</span> 
-            </p>
-            <p class="small">
-                Edit <code>templates/index.html</code> and refresh to see your changes!
-            </p>
+            <div id="payment"></div>
+            <img src="{{ url_for('qr_payment_code', amount=1000) }}" class="QR" alt="payemnt QR code" />
+            </div>
         </header>
     </div>
 </body>

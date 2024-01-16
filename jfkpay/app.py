@@ -1,9 +1,11 @@
-from flask import Flask, render_template, make_response
+from flask import Flask, render_template, make_response, request
 import qrcode, qrcode.image.svg
+from decimal import Decimal
 
 from qrplatba import QRPlatbaGenerator
 from datetime import datetime, timedelta
 
+from jfkpay.config import QRCodeConfig
 
 app = Flask(__name__)
 
@@ -30,8 +32,17 @@ def qr_code():
 
 @app.route("/qr_payment_code")
 def qr_payment_code():
-    due = datetime.now() + timedelta(days=14)
-    generator = QRPlatbaGenerator('123456789/0123', 400.56, x_vs=2034456, message='text', due_date=due)
+    amount = Decimal(request.args.get('amount'))
+    message = request.args.get('message')
+    vs = request.args.get('vs')
+    ks = request.args.get('ks')
+
+
+    due = datetime.now() + timedelta(days=1)
+    generator = QRPlatbaGenerator(QRCodeConfig.ACCOUNT, amount=amount,
+                                  x_ks=QRCodeConfig.KONSTANTNI_SYMBOL, x_vs=QRCodeConfig.VARIABILNI_SYMBOL,
+                                  message=message,
+                                  due_date=due)
     img = generator.make_image()
 
     # optional: custom box size and border

@@ -1,4 +1,4 @@
-import jfk_payments.orders as orders
+import jfkpay.orders as orders
 
 mail_data = [
     {'name': 'Delivered-To', 'value': 'foo@gmail.com'},
