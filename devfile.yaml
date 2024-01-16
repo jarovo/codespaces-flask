@@ -44,14 +44,7 @@ components:
       - name: http-8081
         targetPort: 8081
         path: /
-      environment:
-        - name: QR_ACCOUNT
-          value: "{{ACCOUNT_NUMBER}}"
-        - name: QR_VARIABILNI_SYMBOL
-          value: "{{VARIABILNI_SYMBOL}}"
-        - name: QR_KONSTANTNI_SYMBOL
-          value: "{{KONSTNATNI_SYMBOL}}"
-commands:
+ commands:
   - id: build-image
     apply:
       component: image-build
