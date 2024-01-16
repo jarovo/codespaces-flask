@@ -16,7 +16,7 @@ metadata:
     - Flask
   supportUrl: https://github.com/devfile-samples/devfile-support#support-information
   attributes:
-    alpha.dockerimage-port: 5002
+    alpha.dockerimage-port: 8002
 variables:
   ACCOUNT_NUMBER: 123456789/0800
   VARIABILNI_SYMBOL: 123456
@@ -37,12 +37,12 @@ components:
       deployment/replicas: 1
       deployment/cpuRequest: 10m
       deployment/memoryRequest: 50Mi
-      deployment/container-port: 5002
+      deployment/container-port: 8081
     kubernetes:
       uri: deploy.yaml
       endpoints:
-      - name: http-5002
-        targetPort: 5002
+      - name: http-8081
+        targetPort: 8081
         path: /
       env:
         - name: QR_ACCOUNT
