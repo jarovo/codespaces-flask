@@ -6,6 +6,7 @@ build-backend = "hatchling.build"
 name = "jfkpay"
 version = "2024.0.0"
 dependencies = [
+    "gunicorn",
     "flask==2.3.2",
     "qrcode==7.4.2",
     "qrplatba==1.1.1",
@@ -15,6 +16,9 @@ dependencies = [
     "google-auth-httplib2==0.2.0",
     "google-auth-oauthlib==1.2.0"
 ]
+[tool.hatch.build.targets.wheel]
+packages = ["jfkpay"]
+
 requires-python = ">=3.8"
 authors = [
   {name = "Jaroslav Henner", email = "jaroslav.henner@gmail.com"},
