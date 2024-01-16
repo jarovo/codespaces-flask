@@ -18,9 +18,9 @@ metadata:
   attributes:
     alpha.dockerimage-port: 8002
 variables:
-  ACCOUNT_NUMBER: 123456789/0800
-  VARIABILNI_SYMBOL: 123456
-  KONSTANTNI_SYMBOL: 111111
+  ACCOUNT_NUMBER: "123456789/0800"
+  VARIABILNI_SYMBOL: "123456"
+  KONSTANTNI_SYMBOL: "111111"
 parent:
   id: python
   registryUrl: 'https://registry.devfile.io'
