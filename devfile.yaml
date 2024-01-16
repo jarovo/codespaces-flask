@@ -46,11 +46,11 @@ components:
         path: /
       env:
         - name: QR_ACCOUNT
-          value: {{ACCOUNT_NUMBER}}
+          value: "{{ACCOUNT_NUMBER}}"
         - name: QR_VARIABILNI_SYMBOL
-          value: {{VARIABILNI_SYMBOL}}
+          value: "{{VARIABILNI_SYMBOL}}"
         - name: QR_KONSTANTNI_SYMBOL
-          value: {{KONSTNATNI_SYMBOL}}
+          value: "{{KONSTNATNI_SYMBOL}}"
 commands:
   - id: build-image
     apply:
