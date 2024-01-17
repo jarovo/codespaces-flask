@@ -1,6 +1,6 @@
 schemaVersion: 2.2.0
 metadata:
-  name: python
+  name: jfkpay
   projectType: Python
   displayName: Python
   icon: https://raw.githubusercontent.com/devfile-samples/devfile-stack-icons/main/python.svg
