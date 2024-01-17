@@ -19,6 +19,22 @@ spec:
             - name: http
               containerPort: 8081
               protocol: TCP
+          env:
+            - name: QR_ACCOUNT
+              valueFrom:
+                secretKeyRef:
+                  name: jfkpay
+                  key: QR_ACCOUNT
+            - name: QR_KONSTANTNI_SYMBOL
+              valueFrom:
+                secretKeyRef:
+                  name: jfkpay
+                  key: QR_KONSTANTNI_SYMBOL
+            - name: QR_VARIABILNI_SYMBOL
+              valueFrom:
+                secretKeyRef:
+                  name: jfkpay
+                  key: QR_VARIABILNI_SYMBOL
           resources:
             requests:
               memory: "50Mi"
