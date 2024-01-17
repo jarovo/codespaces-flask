@@ -1,6 +1,6 @@
 schemaVersion: 2.2.0
 metadata:
-  name: python
+  name: jfkpay
   projectType: Python
   displayName: Python
   icon: https://raw.githubusercontent.com/devfile-samples/devfile-stack-icons/main/python.svg
@@ -16,11 +16,7 @@ metadata:
     - Flask
   supportUrl: https://github.com/devfile-samples/devfile-support#support-information
   attributes:
-    alpha.dockerimage-port: 8002
-variables:
-  ACCOUNT_NUMBER: "123456789/0800"
-  VARIABILNI_SYMBOL: "123456"
-  KONSTANTNI_SYMBOL: "111111"
+    alpha.dockerimage-port: 8081
 parent:
   id: python
   registryUrl: 'https://registry.devfile.io'
@@ -41,10 +37,11 @@ components:
     kubernetes:
       uri: deploy.yaml
       endpoints:
-      - name: http-8081
-        targetPort: 8081
-        path: /
- commands:
+        - name: http-8081
+          targetPort: 8081
+          path: /
+          secure: true
+commands:
   - id: build-image
     apply:
       component: image-build
