@@ -50,7 +50,5 @@ spec:
       port: 8081
       protocol: TCP
       targetPort: 8081
-  loadBalancerIP:
-  type: LoadBalancer
   selector:
     app: python-app
