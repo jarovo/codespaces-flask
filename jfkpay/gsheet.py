@@ -6,7 +6,8 @@ from jfkpay.gservices import gsheet_login
 from googleapiclient.discovery import build
 
 
-NOT_PAYED = 'NEZAPLACENO'
+NOT_PAYED = "NEZAPLACENO"
+
 
 def main():
     """Shows basic usage of the Sheets API.
@@ -23,24 +24,26 @@ def main():
 class GSheetPatrol:
     def __init__(self, gservice) -> None:
         self.sheet = gservice.spreadsheets()
-    
+
     def update(self):
         result = (
             self.sheet.values()
-            .get(spreadsheetId=GSHeetsConfig.PAYMENTS_GSHEET_ID,
-                 range=GSHeetsConfig.PAYMENTS_HEADER_RANGE_NAME)
+            .get(
+                spreadsheetId=GSHeetsConfig.PAYMENTS_GSHEET_ID,
+                range=GSHeetsConfig.PAYMENTS_HEADER_RANGE_NAME,
+            )
             .execute()
         )
         values = result.get("values", [])
 
         if not values:
             raise Exception("No data found.")
-        
+
         header = values.pop(0)
         logging.debug(f"{header:}")
-        
+
         state_column_idx = header.index(GSHeetsConfig.PAYMENTS_STATE_COLUMN)
 
         for row in values:
             logging.debug(f"{row:}")
-            #row[state_column_idx] = GSHeetsConfig.PAYMENTS_STATE_NOT_PAYED
+            # row[state_column_idx] = GSHeetsConfig.PAYMENTS_STATE_NOT_PAYED

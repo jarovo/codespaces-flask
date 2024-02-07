@@ -2,6 +2,7 @@ import os
 
 env = os.environ
 
+
 class EnvVar:
     def __init__(self, variable_name=None):
         self._variable_name = variable_name
@@ -16,14 +17,15 @@ class EnvVar:
             return env[self._name]
 
     def __set__(self, obj, value):
-        raise Exception('ReadOnlyAttribute')
+        raise Exception("ReadOnlyAttribute")
         setattr(obj, self._name, value)
 
 
-class QRCodeConfig:  
-    VARIABILNI_SYMBOL: EnvVar = EnvVar('QR_VARIABILNI_SYMBOL')
-    KONSTANTNI_SYMBOL: EnvVar = EnvVar('QR_KONSTANTNI_SYMBOL')
-    ACCOUNT: EnvVar = EnvVar('QR_ACCOUNT')
+class QRCodeConfig:
+    VARIABILNI_SYMBOL: EnvVar = EnvVar("QR_VARIABILNI_SYMBOL")
+    KONSTANTNI_SYMBOL: EnvVar = EnvVar("QR_KONSTANTNI_SYMBOL")
+    ACCOUNT: EnvVar = EnvVar("QR_ACCOUNT")
+    VALIDITY_MINUTES = 60 * 24
 
 
 class GSHeetsConfig:
@@ -31,3 +33,7 @@ class GSHeetsConfig:
     PAYMENTS_HEADER_RANGE_NAME = "Odpovědi formuláře 1!A1:E"
     PAYMENTS_STATE_COLUMN = "Stav voucheru"
     PAYMENTS_STATE_NOT_PAYED = "Nezaplaceno"
+
+
+class Secrets:
+    QR_VOUCHER_PASSWORD: EnvVar = EnvVar("QR_VOUCHER_PASSWORD")

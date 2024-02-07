@@ -10,8 +10,10 @@ dependencies = [
     "flask==2.3.2",
     "qrcode==7.4.2",
     "qrplatba==1.1.1",
+    "cryptography==42.0.0",
     "lxml",
-
+    "oauth2client",
+    
     "google-api-python-client==2.113.0",
     "google-auth-httplib2==0.2.0",
     "google-auth-oauthlib==1.2.0"
@@ -19,7 +21,7 @@ dependencies = [
 [tool.hatch.build.targets.wheel]
 packages = ["jfkpay"]
 
-requires-python = ">=3.8"
+requires-python = ">=3.10"
 authors = [
   {name = "Jaroslav Henner", email = "jaroslav.henner@gmail.com"},
 ]
